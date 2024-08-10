@@ -14,6 +14,7 @@ public class MineApplication {
 		ConfigurableApplicationContext context =SpringApplication.run(MineApplication.class, args);
 
 		StudentService service = context.getBean(StudentService.class);
+
 //		service.addCourse("mecs");
 //		service.addCourse("mpcs");
 //		service.addStudent("jim");
