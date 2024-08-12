@@ -11,12 +11,14 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Student {
+    public class Student {
 
-@Id
-@GeneratedValue(strategy = GenerationType.AUTO)
-int studentId;
-String studentName;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    int studentId;
+
+    String studentName;
+
     @ManyToOne
     @JoinColumn(name="course_id")
     Course course;
