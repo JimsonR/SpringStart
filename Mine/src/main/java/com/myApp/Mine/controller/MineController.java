@@ -8,6 +8,7 @@ import com.myApp.Mine.repository.AuthorRepo;
 import com.myApp.Mine.repository.BookRepo;
 import com.myApp.Mine.repository.CourseRepo;
 import com.myApp.Mine.repository.StudentRepo;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -40,6 +41,11 @@ public class MineController {
 //        return "home";
 //    }
 
+
+   @GetMapping("/sec")
+   public String sec(HttpServletRequest request){
+       return "sec point"+request.getSession().getId();
+   }
 
     @GetMapping("/addStudent")
     public void addStudent(@RequestParam("name") String studentName, @RequestParam("id") int id){
