@@ -11,6 +11,7 @@ import com.myApp.Mine.repository.StudentRepo;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -47,11 +48,17 @@ public class MineController {
        return "sec point"+request.getSession().getId();
    }
 
-    @GetMapping("/addStudent")
-    public void addStudent(@RequestParam("name") String studentName, @RequestParam("id") int id){
+    @PostMapping("/addStudent")
+    public Student addStudent(@RequestParam("name") String studentName, @RequestParam("id") int id){
         Course course = courseRepo.findById(id).orElse(null);
         Student student = Student.builder().studentName(studentName).course(course).build();
         studentRepo.save(student);
+        return student;
+    }
+
+    @GetMapping("/csrf-token")
+    public CsrfToken getCsrfToken(HttpServletRequest request){
+       return (CsrfToken)request.getAttribute("_csrf");
     }
 
     @GetMapping("/allStudents")
