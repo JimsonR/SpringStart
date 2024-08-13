@@ -1,0 +1,65 @@
+<!-- <%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%> -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<form action = "http://localhost:8080/api/addAlien">
+<input type = "text" name = "aid"><br>
+<input type = "text" name = "aname"><br>
+<input type = "text" name = "tech"><br>
+<input type = "submit"><br>
+</form>
+<form action = "http://localhost:8080/api/getAlien">
+<input type = "text" name = "aid"><br>
+<input type = "submit"><br>
+</form>
+</form>
+<form action = "delAlien">
+<input type = "text" name = "aid"><br>
+<input type = "submit"><br>
+</form>
+
+</body>
+<script>
+    document.getElementById('addAlienForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent default form submission
+    
+        const formData = new FormData(this);
+        fetch('http://localhost:8080/api/addAlien', {
+            method: 'POST',
+            body: new URLSearchParams(formData)
+        })
+        .then(response => response.text())
+        .then(data => console.log('Add Alien Response:', data))
+        .catch(error => console.error('Error:', error));
+    });
+    
+    document.getElementById('getAlienForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent default form submission
+    
+        const formData = new FormData(this);
+        const aId = formData.get('aid');
+        fetch(`http://localhost:8080/api/getAlien?aId=${aId}`)
+            .then(response => response.json())
+            .then(data => console.log('Get Alien Response:', data))
+            .catch(error => console.error('Error:', error));
+    });
+    
+    document.getElementById('delAlienForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent default form submission
+    
+        const formData = new FormData(this);
+        const aId = formData.get('aid');
+        fetch(`http://localhost:8080/api/delAlien?aId=${aId}`, {
+            method: 'POST'
+        })
+        .then(response => response.text())
+        .then(data => console.log('Delete Alien Response:', data))
+        .catch(error => console.error('Error:', error));
+    });
+    </script>
+</html>

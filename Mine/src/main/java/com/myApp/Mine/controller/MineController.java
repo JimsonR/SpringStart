@@ -18,8 +18,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@RestController
 
+
+@RestController
+@RequestMapping("/api")
 public class MineController {
     @Autowired
     StudentRepo studentRepo;
@@ -32,37 +34,37 @@ public class MineController {
     @Autowired
     BookRepo bookRepo;
 
-    @GetMapping("home")
-    public String studHome(){
+//    @GetMapping("home")
+//    public String studHome(){
+//
+//        return "home";
+//    }
 
-        return "home.jsp";
 
-    }
-
-    @GetMapping("addStudent")
+    @GetMapping("/addStudent")
     public void addStudent(@RequestParam("name") String studentName, @RequestParam("id") int id){
         Course course = courseRepo.findById(id).orElse(null);
         Student student = Student.builder().studentName(studentName).course(course).build();
         studentRepo.save(student);
     }
 
-    @GetMapping("allStudents")
+    @GetMapping("/allStudents")
     public List<Student> allStudents(){
-      return   studentRepo.findAll();
+      return  studentRepo.findAll();
     }
 
-    @GetMapping("getStudent")
+    @GetMapping("/getStudent")
     public Student getStudent(@RequestParam int id){
         Student student = studentRepo.findById(id).orElse(null);
         return student;
     }
 
-    @GetMapping("listStuds")
+    @GetMapping("/listStuds")
     public List<String> studentList(){
         return studentRepo.selectColumnStudent();
     }
 
-    @GetMapping("addAuthor")
+    @GetMapping("/addAuthor")
     public Author addAuthor(@RequestBody Author authorReq){
 
         Author author = new Author();
